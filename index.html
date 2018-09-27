@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-touch-fullscreen" content="YES" />
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>vue-pdf</title>
+    <script type="text/javascript">
+      (function (doc, win, undefined) {
+        var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+          recalc = function () {
+            var clientWidth = docEl.clientWidth;
+            if (clientWidth === undefined) return;
+            docEl.style.fontSize = (clientWidth / 750) * 100 + 'px';
+            var meta = document.createElement('meta');
+            var head = document.getElementsByTagName('head')[0];
+            /*iPhoneX适配*/
+            if (win.screen.width === 375 && win.screen.height === 812 && /iPhone/.test(navigator.userAgent)) {
+              meta.setAttribute('name','viewport');
+              meta.setAttribute('content','initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,viewport-fit=cover');
+            }
+            head.appendChild(meta);
+            docEl.style.display = 'block';
+          };
+        if (doc.addEventListener === undefined) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false)
+      })(document, window);
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
